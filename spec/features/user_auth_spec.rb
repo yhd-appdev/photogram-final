@@ -4,18 +4,20 @@ describe "/users" do
   it "has the usernames of multiple users", :points => 1 do
     first_user = User.new
     first_user.username = "alice_#{rand(100)}"
+    first_user.email = "alice_#{rand(100)}@example.com"
     first_user.password = "password"
     first_user.save
 
     second_user = User.new
     second_user.username = "bob_#{rand(100)}"
+    second_user.email = "bob_#{rand(100)}@example.com"
     second_user.password = "bob_#{rand(100)}"
     second_user.save
 
     visit "/user_sign_in"
     
     within(:css, "form") do
-      fill_in "Username", with: first_user.username
+      fill_in "Email", with: first_user.email
       fill_in "Password", with: first_user.password
       click_on "Sign in"
     end
@@ -28,17 +30,17 @@ describe "/users" do
 end
 
 describe "/users/[USERNAME]" do
-  it "has the username of the user", :points => 0 do
+  it "has the username of the user", :points => 1 do
     user = User.new
     user.username = "alice_#{rand(100)}"
+    user.email = "alice_#{rand(100)}@example.com"
     user.password = "password"
     user.save
     
     visit "/user_sign_in"
     
-    
     within(:css, "form") do
-      fill_in "Username", with: user.username
+      fill_in "Email", with: user.email
       fill_in "Password", with: user.password
       click_on "Sign in"
     end
@@ -53,21 +55,25 @@ describe "/users/[USERNAME]" do
   it "has the usernames of the user's pending follow requests", :points => 1 do
     user = User.new
     user.username = "alice_#{rand(100)}"
+    user.email = "alice_#{rand(100)}@example.com"
     user.password = "password"
     user.save
 
     alice = User.new
     alice.username = "ALICE #{rand(99)}"
+    alice.email = "ALICE #{rand(99)}@example.com"
     alice.password = "password"
     alice.save 
 
     bob = User.new
     bob.username = "bob #{rand(99)}"
+    bob.email = "bob #{rand(99)}@example.com"
     bob.password = "password"
     bob.save
 
     carol = User.new
     carol.username = "carol #{rand(99)}"
+    carol.email = "carol #{rand(99)}@example.com"
     carol.password = "password"
     carol.save
 
@@ -93,7 +99,7 @@ describe "/users/[USERNAME]" do
     
     
     within(:css, "form") do
-      fill_in "Username", with: user.username
+      fill_in "Email", with: user.email
       fill_in "Password", with: user.password
       click_on "Sign in"
     end
@@ -110,11 +116,13 @@ describe "/users/[USERNAME]" do
   it "has the photos posted by the user", :points => 1 do
     user = User.new
     user.username = "paul_bunyun"
+    user.email = "paul_bunyun@example.com"
     user.password = "password"
     user.save
 
     other_user = User.new
     other_user.username = "codnot"
+    other_user.email = "codnot@example.com"
     other_user.password = "password"
     other_user.save
 
@@ -140,7 +148,7 @@ describe "/users/[USERNAME]" do
     
     
     within(:css, "form") do
-      fill_in "Username", with: user.username
+      fill_in "Email", with: user.email
       fill_in "Password", with: user.password
       click_on "Sign in"
     end
@@ -157,11 +165,13 @@ describe "/users/[USERNAME]/feed" do
   it "has the photos posted by the people the user is following", :points => 2 do
     user = User.new
     user.username = "believe_in_yourself"
+    user.email = "believe_in_yourself@example.com"
     user.password = "password"
     user.save
 
     first_other_user = User.new
     first_other_user.username = "the_girl_reading_this_is_beautiful"
+    first_other_user.email = "the_girl_reading_this_is_beautiful@example.com"
     first_other_user.password = "the_boy_reading_this_is_beautiful"
     first_other_user.save
 
@@ -179,6 +189,7 @@ describe "/users/[USERNAME]/feed" do
 
     second_other_user = User.new
     second_other_user.username = "who_is_bernie_mac"
+    second_other_user.email = "who_is_bernie_mac@example.com"
     second_other_user.password = "thenbpersionisbeautiful"
     second_other_user.save
 
@@ -196,6 +207,7 @@ describe "/users/[USERNAME]/feed" do
 
     third_other_user = User.new
     third_other_user.username = "jeporday"
+    third_other_user.email = "jeporday@example.com"
     third_other_user.password = "jeporday"
     third_other_user.save
 
@@ -213,6 +225,7 @@ describe "/users/[USERNAME]/feed" do
 
     fourth_other_user = User.new
     fourth_other_user.username = "nocat"
+    fourth_other_user.email = "nocat@example.com"
     fourth_other_user.password = "nocat"
     fourth_other_user.save
 
@@ -256,7 +269,7 @@ describe "/users/[USERNAME]/feed" do
     
     
     within(:css, "form") do
-      fill_in "Username", with: user.username
+      fill_in "Email", with: user.email
       fill_in "Password", with: user.password
       click_on "Sign in"
     end
@@ -277,11 +290,13 @@ describe "/users/[USERNAME]/liked_photos" do
   it "has the photos the user has liked", :points => 2 do
     user = User.new
     user.username = "you_can_do_this"
+    user.email = "you_can_do_this@example.com"
     user.password = "password"
     user.save
 
     other_user = User.new
     other_user.username = "camel_case"
+    other_user.email = "camel_case@example.com"
     other_user.password = "camel_case"
     other_user.save
 
@@ -321,7 +336,7 @@ describe "/users/[USERNAME]/liked_photos" do
     visit "/user_sign_in"
     
     within(:css, "form") do
-      fill_in "Username", with: user.username
+      fill_in "Email", with: user.email
       fill_in "Password", with: user.password
       click_on "Sign in"
     end
@@ -338,26 +353,31 @@ describe "/users/[USERNAME]/discover" do
   it "has the photos that are liked by the people the user is following", :points => 2 do
     user = User.new
     user.username = "jelani_is_the_best_ta"
+    user.email = "jelani_is_the_best_ta@example.com"
     user.password = "password"
     user.save
     
     first_other_user = User.new
     first_other_user.username = "patrick_is_a_good_ta"
+    first_other_user.email = "patrick_is_a_good_ta@example.com"
     first_other_user.password = "patrick_is_a_good_ta"
     first_other_user.save
     
     second_other_user = User.new
     second_other_user.username = "logan_is_a_ta"
+    second_other_user.email = "logan_is_a_ta@example.com"
     second_other_user.password = "logan_is_a_ta"
     second_other_user.save
     
     third_other_user = User.new
     third_other_user.username = "give_me_free_cookies"
+    third_other_user.email = "give_me_free_cookies@example.com"
     third_other_user.password = "give_me_free_cookies"
     third_other_user.save
     
     fourth_other_user = User.new
     fourth_other_user.username = "jelani_is_still_the_best_ta"
+    fourth_other_user.email = "jelani_is_still_the_best_ta@example.com"
     fourth_other_user.password = "jelani_is_still_the_best_ta"
     fourth_other_user.save
 
@@ -476,7 +496,7 @@ describe "/users/[USERNAME]/discover" do
     visit "/user_sign_in"
     
     within(:css, "form") do
-      fill_in "Username", with: user.username
+      fill_in "Email", with: user.email
       fill_in "Password", with: user.password
       click_on "Sign in"
     end
@@ -498,6 +518,7 @@ describe "/users/[username] - Delete this photo button" do
     first_user = User.new
     first_user.password = "password"
     first_user.username = "alice"
+    first_user.email = "alice@example.com"
     first_user.save
 
     photo = Photo.new
@@ -508,9 +529,8 @@ describe "/users/[username] - Delete this photo button" do
 
     visit "/user_sign_in"
     
-    
     within(:css, "form") do
-      fill_in "Username", with: first_user.username
+      fill_in "Email", with: first_user.email
       fill_in "Password", with: first_user.password
       click_on "Sign in"
     end
@@ -528,6 +548,7 @@ describe "/photos/[ID] - Delete this photo button" do
     first_user = User.new
     first_user.password = "password"
     first_user.username = "alice"
+    first_user.email = "alice@example.com"
     first_user.save
 
     photo = Photo.new
@@ -540,7 +561,7 @@ describe "/photos/[ID] - Delete this photo button" do
     
     
     within(:css, "form") do
-      fill_in "Username", with: first_user.username
+      fill_in "Email", with: first_user.email
       fill_in "Password", with: first_user.password
       click_on "Sign in"
     end
@@ -558,6 +579,7 @@ describe "/photos/[ID] - Update photo form" do
     first_user = User.new
     first_user.password = "password"
     first_user.username = "alice"
+    first_user.email = "alice@example.com"
     first_user.save
 
     photo = Photo.new
@@ -569,7 +591,7 @@ describe "/photos/[ID] - Update photo form" do
     visit "/user_sign_in"
     
     within(:css, "form") do
-      fill_in "Username", with: first_user.username
+      fill_in "Email", with: first_user.email
       fill_in "Password", with: first_user.password
       click_on "Sign in"
     end
@@ -586,6 +608,7 @@ describe "/photos/[ID] - Like Form" do
     first_user = User.new
     first_user.password = "password"
     first_user.username = "alice"
+    first_user.email = "alice@example.com"
     first_user.save
 
     photo = Photo.new
@@ -598,7 +621,7 @@ describe "/photos/[ID] - Like Form" do
     visit "/user_sign_in"
     
     within(:css, "form") do
-      fill_in "Username", with: first_user.username
+      fill_in "Email", with: first_user.email
       fill_in "Password", with: first_user.password
       click_on "Sign in"
     end
@@ -617,6 +640,7 @@ describe "/photos/[ID] - Unlike link" do
     first_user = User.new
     first_user.password = "password"
     first_user.username = "alice"
+    first_user.email = "alice@example.com"
     first_user.save
 
     photo = Photo.new
@@ -634,7 +658,7 @@ describe "/photos/[ID] - Unlike link" do
     visit "/user_sign_in"
     
     within(:css, "form") do
-      fill_in "Username", with: first_user.username
+      fill_in "Email", with: first_user.email
       fill_in "Password", with: first_user.password
       click_on "Sign in"
     end
@@ -654,6 +678,7 @@ describe "/photos/[ID] — Add comment form" do
     first_user = User.new
     first_user.password = "password"
     first_user.username = "alice"
+    first_user.email = "alice@example.com"
     first_user.likes_count = 0
     first_user.comments_count = 0
     first_user.save
@@ -669,7 +694,7 @@ describe "/photos/[ID] — Add comment form" do
     visit "/user_sign_in"
     
     within(:css, "form") do
-      fill_in "Username", with: first_user.username
+      fill_in "Email", with: first_user.email
       fill_in "Password", with: first_user.password
       click_on "Sign in"
     end
