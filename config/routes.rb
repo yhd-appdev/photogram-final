@@ -1,5 +1,24 @@
 Rails.application.routes.draw do
 
+  # Routes for the Like resource:
+
+  # CREATE
+  post("/insert_like", { :controller => "likes", :action => "create" })
+          
+  # READ
+  get("/likes", { :controller => "likes", :action => "index" })
+  
+  get("/likes/:path_id", { :controller => "likes", :action => "show" })
+  
+  # UPDATE
+  
+  post("/modify_like/:path_id", { :controller => "likes", :action => "update" })
+  
+  # DELETE
+  get("/delete_like/:path_id", { :controller => "likes", :action => "destroy" })
+
+  #------------------------------
+
   # Routes for the Comment resource:
 
   # CREATE
@@ -18,11 +37,14 @@ Rails.application.routes.draw do
   get("/delete_comment/:path_id", { :controller => "comments", :action => "destroy" })
 
   #------------------------------
+  
+  # Routes for the User resource:
 
   get("/", { :controller => "users", :action => "index" })
   
   # CREATE
-  post("/insert_user", { :controller => "users", :action => "create" })
+  post("/insert_user_record", { :controller => "users", :action => "create" })
+
           
   # READ
   get("/users", { :controller => "users", :action => "index" })
@@ -37,6 +59,8 @@ Rails.application.routes.draw do
   get("/delete_user/:path_id", { :controller => "users", :action => "destroy" })
 
   #------------------------------
+  
+  # Routes for the Photo resource:
 
   # CREATE
   post("/insert_photo", { :controller => "photos", :action => "create" })
