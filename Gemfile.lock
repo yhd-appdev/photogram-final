@@ -14,7 +14,7 @@ GIT
 
 GIT
   remote: https://github.com/firstdraft/web_git.git
-  revision: 3aeee54ff417a21a2e504c1b88428a45e227c583
+  revision: 5b952b270ef2bc91c89313b6fa4ae456efa37b8b
   specs:
     web_git (0.0.4)
       diffy
